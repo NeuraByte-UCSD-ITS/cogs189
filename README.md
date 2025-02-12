@@ -9,7 +9,7 @@ This repository contains the code for our **COGS 189 Brain-Computer Interface (B
 ### **Getting Started**  
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/yourusername/cogs189.git
+   git clone https://github.com/NeuraByte-UCSD-ITS/cogs189.git
    ```
 2. Switch to the relevant branch:  
    ```bash
