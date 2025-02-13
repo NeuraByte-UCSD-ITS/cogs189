@@ -28,14 +28,14 @@ This repository contains the code for our **COGS 189 Brain-Computer Interface (B
 
 ### **Team Members**  
 
-| Name                  | PID        | Email             | Discord            |
-|-----------------------|-----------|-------------------|--------------------|
-| **Edwin Ruiz**        | A17136339 | e1ruiz@ucsd.edu   | ucsd_its_neuro     |
-| **Vishal Patel**      | v7patel    | v7patel@ucsd.edu  | vishalp            |
-| **Dante Testini**     | A16772108 | dtestini@ucsd.edu | dante.___          |
-| **Nancy Shen**        | A17006379 | nshen@ucsd.edu    | nyzll              |
-| **Sarah R. Bulatao**  | A17239438 | sbulatao@ucsd.edu | 3ffulgentx#4449    |
-| **Andy Huang**        | A17391626 | anh031@ucsd.edu   | nub6234            |
+| Name                  | PID        | Email             | Discord            | GitHub Username |
+|-----------------------|-----------|-------------------|--------------------|-----------------|
+| **Edwin Ruiz**        | A17136339 | e1ruiz@ucsd.edu   | ucsd_its_neuro     | NeuraByte-UCSD-ITS |
+| **Vishal Patel**      | v7patel    | v7patel@ucsd.edu  | vishalp            | vip11017 |
+| **Dante Testini**     | A16772108 | dtestini@ucsd.edu | dante.___          | Dante-t0 |
+| **Nancy Shen**        | A17006379 | nshen@ucsd.edu    | nyzll              | nancyshenn |
+| **Sarah R. Bulatao**  | A17239438 | sbulatao@ucsd.edu | 3ffulgentx#4449    | sbulatao |
+| **Andy Huang**        | A17391626 | anh031@ucsd.edu   | nub6234            | anh1231 |
 
 ### **Project Resources**  
 
