@@ -15,6 +15,10 @@ This repository contains the code for our **COGS 189 Brain-Computer Interface (B
    ```bash
    git checkout online   # or git checkout offline
    ```
+3. Stay updated with the latest changes:  
+   ```bash
+   git pull origin branch-name  # Replace 'branch-name' with online/offline/main
+   ```
 
 ### **Contributing**  
 1. Make changes and push to your branch:  
