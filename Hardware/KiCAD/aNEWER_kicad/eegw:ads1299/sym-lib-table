@@ -1,0 +1,5 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "ads1299")(type "KiCad")(uri "${KIPRJMOD}/ads1299.kicad_sym")(options "")(descr ""))
+  (lib (name "Added_Comp")(type "KiCad")(uri "/Users/3xquisite/Desktop/COG189EEGProject/Added_Comp.kicad_sym")(options "")(descr ""))
+)
