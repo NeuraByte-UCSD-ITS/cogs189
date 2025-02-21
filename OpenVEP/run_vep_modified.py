@@ -27,7 +27,7 @@ save_file_eeg_trials = save_dir + f'eeg-trials_{n_per_class}-per-class_run-{run}
 save_file_aux_trials = save_dir + f'aux-trials_{n_per_class}-per-class_run-{run}.npy'
 model_file_path = 'cache/FBTRCA_model.pkl'
 
-import string
+"""import string
 import numpy as np
 import psychopy.visual
 import psychopy.event
@@ -86,7 +86,7 @@ phases = np.array([
     (0.0, base_phase - i_letter * phase_inc)
     for i_letter in range(n_text)])
 win.close()
-print(text_strip.shape, el_mask.shape, phases.shape)
+print(text_strip.shape, el_mask.shape, phases.shape)"""
 
 def create_32_targets(size=2/8*0.7, colors=[-1, -1, -1] * 32, checkered=False, elementTex=None, elementMask=None, phases=None):
     width, height = window.size
@@ -101,6 +101,7 @@ def create_32_targets(size=2/8*0.7, colors=[-1, -1, -1] * 32, checkered=False, e
                                    sizes=[size, size * aspect_ratio], xys=positions, phases=phases, colors=colors) # sizes=[size, size * aspect_ratio]
     return keys
 
+"""
 def create_32_key_caps(size=2/8*0.7, colors=[-1, -1, -1] * 32):
     width, height = window.size
     aspect_ratio = width/height
@@ -108,25 +109,25 @@ def create_32_key_caps(size=2/8*0.7, colors=[-1, -1, -1] * 32):
     positions = [[pos[0]*width/2, pos[1]*height/2] for pos in positions]
     keys = visual.ElementArrayStim(window, nElements=32, elementTex=text_strip, elementMask=el_mask, units='pix',
                                    sizes=text_strip.shape, xys=positions, phases=phases, colors=colors)
-    return keys
+    return keys"""
 
-def checkered_texure():
+"""def checkered_texure():
     rows = 8  # Replace with desired number of rows
     cols = 8  # Replace with desired number of columns
     array = np.zeros((rows, cols))
     for i in range(rows):
         array[i, ::2] = i % 2  # Set every other element to 0 or 1, alternating by row
         array[i, 1::2] = (i+1) % 2  # Set every other element to 0 or 1, alternating by row
-    return np.kron(array, np.ones((16, 16)))*2-1
+    return np.kron(array, np.ones((16, 16)))*2-1"""
 
-def create_32_target_positions(size=2/8*0.7):
+"""def create_32_target_positions(size=2/8*0.7):
     size_with_border = size / 0.7
     width, height = window.size
     aspect_ratio = width/height
     positions = []
     for i_col in range(8):
         positions.extend([[i_col*size_with_border-1+size_with_border/2, -j_row*size_with_border*aspect_ratio+1-size_with_border*aspect_ratio/2 - 1/4/2] for j_row in range(4)])
-    return positions
+    return positions"""
 
 def create_photosensor_dot(size=2/8*0.7):
     width, height = window.size
@@ -256,6 +257,7 @@ if cyton_in:
 num_frames = np.round(stim_duration * refresh_rate).astype(int)  # total number of frames per trial
 frame_indices = np.arange(num_frames)  # frame indices for the trial
 if stim_type == 'alternating': # Alternating VEP (aka SSVEP)
+    #choose 4
     stimulus_classes = [(8, 0), (8, 0.5), (8, 1), (8, 1.5),
                         (9, 0), (9, 0.5), (9, 1), (9, 1.5),
                         (10, 0), (10, 0.5), (10, 1), (10, 1.5),

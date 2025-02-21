@@ -5,7 +5,7 @@ from scipy import signal
 import random, os, pickle
 import mne
 
-cyton_in = False
+cyton_in = True
 lsl_out = False
 width = 1536
 height = 864
@@ -33,7 +33,7 @@ import psychopy.visual
 import psychopy.event
 from psychopy import core
 
-letters = '←→↑↓'
+letters = 'QAZ⤒WSX,EDC?R⌫FVT⎵GBYHN.UJMPIKOL'
 win = psychopy.visual.Window(
         size=(800, 800),
         units="norm",
@@ -176,9 +176,7 @@ if cyton_in:
     ANALOGUE_MODE = '/2' # Reads from analog pins A5(D11), A6(D12) and if no 
                         # wifi shield is present, then A7(D13) as well.
     def find_openbci_port():
-        print("running")
         """Finds the port to which the Cyton Dongle is connected to."""
-        
         # Find serial port names per OS
         if sys.platform.startswith('win'):
             ports = ['COM%s' % (i + 1) for i in range(256)]
@@ -264,7 +262,6 @@ if stim_type == 'alternating': # Alternating VEP (aka SSVEP)
                         (13, 0), (13, 0.5), (13, 1), (13, 1.5),
                         (14, 0), (14, 0.5), (14, 1), (14, 1.5),
                         (15, 0), (15, 0.5), (15, 1), (15, 1.5), ] # flickering frequencies (in hz) and phase offsets (in pi*radians)
-
     stimulus_frames = np.zeros((num_frames, len(stimulus_classes)))
     for i_class, (flickering_freq, phase_offset) in enumerate(stimulus_classes):
             phase_offset += .00001  # nudge phase slightly from points of sudden jumps for offsets that are pi multiples
