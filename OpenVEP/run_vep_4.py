@@ -1,5 +1,3 @@
-#Simon's Notes
-
 from psychopy import visual, core
 from psychopy.hardware import keyboard
 import numpy as np
@@ -29,107 +27,32 @@ save_file_eeg_trials = save_dir + f'eeg-trials_{n_per_class}-per-class_run-{run}
 save_file_aux_trials = save_dir + f'aux-trials_{n_per_class}-per-class_run-{run}.npy'
 model_file_path = 'cache/FBTRCA_model.pkl'
 
-"""import string
+
+import string
 import numpy as np
 import psychopy.visual
 import psychopy.event
 from psychopy import core
 
-letters = 'QAZ⤒WSX,EDC?R⌫FVT⎵GBYHN.UJMPIKOL'
-win = psychopy.visual.Window(
-        size=(800, 800),
-        units="norm",
-        fullscr=False)
-n_text = 32
-text_cap_size = 64 #119  # 34
-text_strip_height = n_text * text_cap_size
-text_strip = np.full((text_strip_height, text_cap_size), np.nan)
-text = psychopy.visual.TextStim(win=win, height=0.145, font="Helvetica") # font="Courier"
-cap_rect_norm = [-(text_cap_size / 2.0) / (win.size[0] / 2.0),  # left
-                     +(text_cap_size / 2.0) / (win.size[1] / 2.0),  # top
-                     +(text_cap_size / 2.0) / (win.size[0] / 2.0),  # right
-                     -(text_cap_size / 2.0) / (win.size[1] / 2.0)]  # bottom
-# capture the rendering of each letter
-for (i_letter, letter) in enumerate(letters):
-    text.text = letter.upper()
-    buff = psychopy.visual.BufferImageStim(
-        win=win,
-        stim=[text],
-        rect=cap_rect_norm)
-    i_rows = slice(i_letter * text_cap_size,
-                    i_letter * text_cap_size + text_cap_size)
-    text_strip[i_rows, :] = (np.flipud(np.array(buff.image)[..., 0]) / 255.0 * 2.0 - 1.0)
-# need to pad 'text_strip' to pow2 to use as a texture
-new_size = max([int(np.power(2, np.ceil(np.log(dim_size) / np.log(2))))
-                for dim_size in text_strip.shape])
-pad_amounts = []
-for i_dim in range(2):
-    first_offset = int((new_size - text_strip.shape[i_dim]) / 2.0)
-    second_offset = new_size - text_strip.shape[i_dim] - first_offset
-    pad_amounts.append([first_offset, second_offset])
-text_strip = np.pad(
-    array=text_strip,
-    pad_width=pad_amounts,
-    mode="constant",
-    constant_values=0.0)
-text_strip = (text_strip - 1) * -1  # invert the texture mapping
-# make a central mask to show just one letter
-el_mask = np.ones(text_strip.shape) * -1.0
-# start by putting the visible section in the corner
-el_mask[:text_cap_size, :text_cap_size] = 1.0
-# then roll to the middle
-el_mask = np.roll(el_mask,
-                    (int(new_size / 2 - text_cap_size / 2),) * 2,
-                    axis=(0, 1))
-# work out the phase offsets for the different letters
-base_phase = ((text_cap_size * (n_text / 2.0)) - (text_cap_size / 2.0)) / new_size
-phase_inc = (text_cap_size) / float(new_size)
-phases = np.array([
-    (0.0, base_phase - i_letter * phase_inc)
-    for i_letter in range(n_text)])
-win.close()
-print(text_strip.shape, el_mask.shape, phases.shape)"""
+letters = 'LRUD'
 
-def create_32_targets(size=2/8*0.7, colors=[-1, -1, -1] * 32, checkered=False, elementTex=None, elementMask=None, phases=None):
-    width, height = window.size
-    aspect_ratio = width/height
-    positions = create_32_target_positions(size)
-    # positions = [[int(pos[0]*width/2), int(pos[1]*height/2)] for pos in positions]
-    if checkered:
-        texture = checkered_texure()
-    else:
-        texture = elementTex
-    keys = visual.ElementArrayStim(window, nElements=32, elementTex=texture, elementMask=elementMask, units='norm',
+def create_4_targets(size=2/8*0.7, colors=[-1, -1, -1] * 4, checkered=False, elementTex=None, elementMask=None, phases=None):
+    positions = create_4_target_positions()
+
+    texture = elementTex
+    keys = visual.ElementArrayStim(window, nElements=4, elementTex=texture, elementMask=elementMask, units='norm',
                                    sizes=[size, size * aspect_ratio], xys=positions, phases=phases, colors=colors) # sizes=[size, size * aspect_ratio]
     return keys
 
-"""
-def create_32_key_caps(size=2/8*0.7, colors=[-1, -1, -1] * 32):
-    width, height = window.size
-    aspect_ratio = width/height
-    positions = create_32_target_positions(size)
-    positions = [[pos[0]*width/2, pos[1]*height/2] for pos in positions]
-    keys = visual.ElementArrayStim(window, nElements=32, elementTex=text_strip, elementMask=el_mask, units='pix',
-                                   sizes=text_strip.shape, xys=positions, phases=phases, colors=colors)
-    return keys"""
+def create_4_target_positions(size=2/8*0.7):
+    positions = [[0,0.5], [0,-0.5], [0.5,0], [-0.5,0]]
+    return positions
 
-"""def checkered_texure():
-    rows = 8  # Replace with desired number of rows
-    cols = 8  # Replace with desired number of columns
-    array = np.zeros((rows, cols))
-    for i in range(rows):
-        array[i, ::2] = i % 2  # Set every other element to 0 or 1, alternating by row
-        array[i, 1::2] = (i+1) % 2  # Set every other element to 0 or 1, alternating by row
-    return np.kron(array, np.ones((16, 16)))*2-1"""
-
-"""def create_32_target_positions(size=2/8*0.7):
-    size_with_border = size / 0.7
-    width, height = window.size
-    aspect_ratio = width/height
-    positions = []
-    for i_col in range(8):
-        positions.extend([[i_col*size_with_border-1+size_with_border/2, -j_row*size_with_border*aspect_ratio+1-size_with_border*aspect_ratio/2 - 1/4/2] for j_row in range(4)])
-    return positions"""
+def create_4_key_caps(size=2/8*0.7, colors=[-1, -1, -1] * 4):
+    positions = create_4_target_positions(size)
+    keys = visual.ElementArrayStim(window, nElements=4, elementTex=text_strip, elementMask=el_mask, units='pix',
+                sizes=text_strip.shape, xys=positions, phases=phases, colors=colors)
+    return keys
 
 def create_photosensor_dot(size=2/8*0.7):
     width, height = window.size
@@ -159,9 +82,9 @@ window = visual.Window(
         fullscr = True,
         useRetina = False,
     )
-# visual_stimulus = create_32_targets(checkered=False, elementTex=text_strip, elementMask=el_mask, phases=phases)
-visual_stimulus = create_32_targets(checkered=False)
-key_caps = create_32_key_caps()
+
+visual_stimulus = create_4_targets(checkered=False)
+key_caps = create_4_key_caps()
 photosensor_dot = create_photosensor_dot()
 photosensor_dot.color = np.array([-1, -1, -1])
 photosensor_dot.draw()
@@ -181,7 +104,6 @@ if cyton_in:
     def find_openbci_port():
         print("running")
         """Finds the port to which the Cyton Dongle is connected to."""
-        """
         # Find serial port names per OS
         if sys.platform.startswith('win'):
             ports = ['COM%s' % (i + 1) for i in range(256)]
@@ -213,7 +135,7 @@ if cyton_in:
             raise OSError('Cannot find OpenBCI port.')
             exit()
         else:
-            return openbci_port"""
+            return openbci_port
         
     print(BoardShim.get_board_descr(CYTON_BOARD_ID))
     params = BrainFlowInputParams()
@@ -260,25 +182,17 @@ num_frames = np.round(stim_duration * refresh_rate).astype(int)  # total number 
 frame_indices = np.arange(num_frames)  # frame indices for the trial
 if stim_type == 'alternating': # Alternating VEP (aka SSVEP)
     #choose 4
-    stimulus_classes = [(8, 0), (8, 0.5), (8, 1), (8, 1.5),
-                        (9, 0), (9, 0.5), (9, 1), (9, 1.5),
-                        (10, 0), (10, 0.5), (10, 1), (10, 1.5),
-                        (11, 0), (11, 0.5), (11, 1), (11, 1.5),
-                        (12, 0), (12, 0.5), (12, 1), (12, 1.5),
-                        (13, 0), (13, 0.5), (13, 1), (13, 1.5),
-                        (14, 0), (14, 0.5), (14, 1), (14, 1.5),
-                        (15, 0), (15, 0.5), (15, 1), (15, 1.5), ] # flickering frequencies (in hz) and phase offsets (in pi*radians)
+    stimulus_classes = [(8, 0), (10, 0), (12,0), (15,0)] # flickering frequencies (in hz) and phase offsets (in pi*radians)
 
     stimulus_frames = np.zeros((num_frames, len(stimulus_classes)))
     for i_class, (flickering_freq, phase_offset) in enumerate(stimulus_classes):
             phase_offset += .00001  # nudge phase slightly from points of sudden jumps for offsets that are pi multiples
             stimulus_frames[:, i_class] = signal.square(2 * np.pi * flickering_freq * (frame_indices / refresh_rate) + phase_offset * np.pi)  # frequency approximation formula
 # trial_sequence = create_trial_sequence(n_per_class=n_per_class, classes=stimulus_classes, seed=run)
-trial_sequence = np.tile(np.arange(32), n_per_class)
+trial_sequence = np.tile(np.arange(4), n_per_class)
 np.random.seed(run)
 np.random.shuffle(trial_sequence)
-target_positions = create_32_target_positions(size=2/8*0.7)
-
+target_positions = [[0,0.5], [0,-0.5], [0.5,0], [-0.5,0]]
 eeg = np.zeros((8, 0))
 aux = np.zeros((3, 0))
 timestamp = np.zeros((0))

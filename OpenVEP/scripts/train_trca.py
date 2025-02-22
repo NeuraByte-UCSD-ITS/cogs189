@@ -77,7 +77,7 @@ def run_fbtrca(eeg, target_by_trial, target_tab, duration=1, onset_delay=42,srat
     np.random.seed(64)
     np.random.shuffle(eeg)
     n_trials = eeg.shape[0]
-    classes = range(32)
+    classes = range(4)
     n_classes = len(classes)
     y = np.array([list(target_tab.values())] * n_trials).T.reshape(-1)
     eeg_temp = eeg[:n_trials,classes,:,onset_delay:]
