@@ -34,7 +34,7 @@ import psychopy.visual
 import psychopy.event
 from psychopy import core
 
-letters = 'LRUD'
+letters = '↑→↓←'
 
 def create_4_targets(size=2/8*0.7, colors=[-1, -1, -1] * 4, checkered=False, elementTex=None, elementMask=None, phases=None):
     positions = create_4_target_positions()
@@ -44,15 +44,14 @@ def create_4_targets(size=2/8*0.7, colors=[-1, -1, -1] * 4, checkered=False, ele
                                    sizes=[size, size * aspect_ratio], xys=positions, phases=phases, colors=colors) # sizes=[size, size * aspect_ratio]
     return keys
 
-def create_4_target_positions(size=2/8*0.7):
-    positions = [[0,0.5], [0,-0.5], [0.5,0], [-0.5,0]]
+def create_4_target_positions():
+    positions = [[0,0.5], [0.5,0], [0, -0.5], [-0.5,0]]
     return positions
 
-def create_4_key_caps(size=2/8*0.7, colors=[-1, -1, -1] * 4):
-    positions = create_4_target_positions(size)
-    keys = visual.ElementArrayStim(window, nElements=4, elementTex=text_strip, elementMask=el_mask, units='pix',
-                sizes=text_strip.shape, xys=positions, phases=phases, colors=colors)
-    return keys
+def create_4_key_caps():
+    positions = create_4_target_positions()
+    keycaps = visual.ElementArrayStim(window, nElements=4, xys=positions)
+    return keycaps
 
 def create_photosensor_dot(size=2/8*0.7):
     width, height = window.size
@@ -176,8 +175,6 @@ if cyton_in:
     else:
         model = None
 
-
-
 num_frames = np.round(stim_duration * refresh_rate).astype(int)  # total number of frames per trial
 frame_indices = np.arange(num_frames)  # frame indices for the trial
 if stim_type == 'alternating': # Alternating VEP (aka SSVEP)
@@ -192,7 +189,7 @@ if stim_type == 'alternating': # Alternating VEP (aka SSVEP)
 trial_sequence = np.tile(np.arange(4), n_per_class)
 np.random.seed(run)
 np.random.shuffle(trial_sequence)
-target_positions = [[0,0.5], [0,-0.5], [0.5,0], [-0.5,0]]
+target_positions = create_4_target_positions()
 eeg = np.zeros((8, 0))
 aux = np.zeros((3, 0))
 timestamp = np.zeros((0))
@@ -327,7 +324,10 @@ else:
         pred_text.draw()
         visual_stimulus.colors = np.array([-1] * 3).T
         visual_stimulus.draw()
-        key_caps.draw()
+        #key_caps.draw()
+        for i_letter, position in enumerate(target_positions):
+            text = visual.TextStim(win=window, text=letters[i_letter].upper(), pos=position)
+            text.draw()
         pred_target = visual.Rect(win=window, units="norm", width=2/8*0.7 * 1.3, height=2/8*0.7*aspect_ratio * 1.3, pos=target_positions[prediction], lineColor='white', lineWidth=3)
         pred_target.draw()
         photosensor_dot.color = np.array([-1, -1, -1])
