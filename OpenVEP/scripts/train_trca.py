@@ -22,10 +22,10 @@ import argparse
 
 parser = argparse.ArgumentParser(description='Train TRCA model')
 
-folder_path = 'data/cyton8_alternating-vep_32-class_1.2s/sub-01/ses-01/'
+folder_path = 'data/cyton8_alternating-vep_4-class_1.2s/sub-01/ses-01/'
 model_save_dir = 'cache/'
 model_name = 'FBTRCA_model.pkl'
-# folder_path = '../data/cyton8_alternating-vep_32-class_1.5s/sub-01/ses-01/'
+# folder_path = '../data/cyton8_alternating-vep_4-class_1.5s/sub-01/ses-01/'
 sampling_rate = 250
 
 # List all the run files in the folder
@@ -60,9 +60,9 @@ for run_file in run_files:
     reverted_eeg_trials = np.empty_like(eeg_trials)
     reverted_eeg_trials[shuffled_indices] = eeg_trials
     
-    # Reshape the reverted EEG trials to (2, 32, 8, 350)
-    reverted_eeg_trials = reverted_eeg_trials.reshape(2, 32, 8, 350)
-    # reverted_eeg_trials = reverted_eeg_trials.reshape(2, 32, 8, 425)
+    # Reshape the reverted EEG trials to (2, 4, 8, 350)
+    reverted_eeg_trials = reverted_eeg_trials.reshape(2, 4, 8, 350)
+    # reverted_eeg_trials = reverted_eeg_trials.reshape(2, 4, 8, 425)
     
     # Add the reverted EEG trials to the list
     reverted_eeg_trials_list.append(reverted_eeg_trials)
@@ -193,7 +193,7 @@ def run_fbtdca(eeg, target_by_trial, target_tab, duration=1.0, onset_delay=42,sr
     np.random.seed(64)
     np.random.shuffle(eeg)
     n_trials = eeg.shape[0]
-    classes = range(32)
+    classes = range(4)
     n_classes = len(classes)
     prob_matrix=np.zeros((n_classes,n_classes))
     y = np.array([list(target_tab.values())] * n_trials).T.reshape(-1)
@@ -266,14 +266,7 @@ def run_fbtdca(eeg, target_by_trial, target_tab, duration=1.0, onset_delay=42,sr
         return prob_matrix, accuracy_score(testYs, pred_labelss)
     return confusion_matrix(testYs, pred_labelss, normalize='true'), accuracy_score(testYs, pred_labelss)
 
-stimulus_classes = [(8, 0), (8, 0.5), (8, 1), (8, 1.5),
-                        (9, 0), (9, 0.5), (9, 1), (9, 1.5),
-                        (10, 0), (10, 0.5), (10, 1), (10, 1.5),
-                        (11, 0), (11, 0.5), (11, 1), (11, 1.5),
-                        (12, 0), (12, 0.5), (12, 1), (12, 1.5),
-                        (13, 0), (13, 0.5), (13, 1), (13, 1.5),
-                        (14, 0), (14, 0.5), (14, 1), (14, 1.5),
-                        (15, 0), (15, 0.5), (15, 1), (15, 1.5), ]
+stimulus_classes = [(8, 0), (10, 0), (12,0), (15,0)]
 
 target_tab = {tuple(map(float, cls)): idx for idx, cls in enumerate(stimulus_classes)}
 target_by_trial = [stimulus_classes] * 99
