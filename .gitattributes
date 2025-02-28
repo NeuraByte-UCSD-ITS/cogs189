@@ -11,3 +11,5 @@
 *.so filter=lfs diff=lfs merge=lfs -text
 *.jpg filter=lfs diff=lfs merge=lfs -text
 *.png filter=lfs diff=lfs merge=lfs -text
+OpenVEP/*.MOV filter=lfs diff=lfs merge=lfs -text
+OpenVEP/*.jpeg filter=lfs diff=lfs merge=lfs -text
