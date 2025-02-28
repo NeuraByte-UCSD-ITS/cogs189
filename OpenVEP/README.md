@@ -141,7 +141,7 @@ The experiment involved visually attending to one of four flickering squares, ea
 - **Testing Real-time BCI:** 100% accuracy
   - In the video, the trained model successfully detected the subject’s focus, highlighting the correct square.
 
-[Training Model Test Success Video](training_model_test_success.MOV)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/0Seno1-ghCM?si=nf7Hc1smL6WwDuGE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ### **Real-Time Model Application & Next Steps**
 
