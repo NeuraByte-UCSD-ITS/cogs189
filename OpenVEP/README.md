@@ -34,14 +34,14 @@ We have officially completed the **SSVEP portion** of our experiment in this rep
 **Configuration in ************************************`run_vep_4.py`************************************:**
 
 ```python
-cyton_in = False
+cyton_in = True
 lsl_out = False
 stim_duration = 1.2
 n_per_class = 2
 stim_type = 'alternating' # 'alternating' or 'independent'
 subject = 1
 session = 1
-calibration_mode = False
+calibration_mode = False #Calibration Mode=True, Prediction Mode=False
 save_dir = f'data/cyton8_{stim_type}-vep_4-class_{stim_duration}s/sub-{subject:02d}/ses-{session:02d}/' # Directory to save data to
 run = 1 # Run number, it is used as the random seed for the trial sequence generation
 model_file_path = 'cache/FBTRCA_model.pkl'
@@ -112,11 +112,10 @@ These frequencies are used in conjunction with a phase shift of `0` radians to g
 1. Open **System Control Panel**
 2. Select **Data Source** → "Cyton (live)"
 3. Choose **Pick Transfer Protocol** → "Serial (from Dongle)"
-4. Select **Serial/COM Port** → "(Cyton) COMS"
-5. Click **Auto-Connect**
+4. Select **Serial Connect** → "Manual"
+5. Select **Serial/COM Port** → "(Cyton) COMS"
 6. Click **Start Session**
 
-> Vishal will verify and complete this section regarding the experimental setup and procedure.
 
 ## **Experiment Execution**
 
@@ -126,10 +125,10 @@ The experiment involved visually attending to one of four flickering squares, ea
   - **4 squares positioned at:**
     - **North, South, West, and East**
 - **Each run:**
-  - 8 randomized trials per run
+  - 8 randomized trials per run (2 trials per each square)
   - 10 runs in total
 - **Trained Model:** `FBTRCA_model.pkl`
-- **Classification Script:** `train_trca.py`
+- **Training (Classification) Script:** `train_trca.py`
 - **Final Application Demo:** `training_model_test_success*.MOV`
 
 ### Results
