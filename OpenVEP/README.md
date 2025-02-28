@@ -1,7 +1,5 @@
 # **COGS 189 - BCI Project (OpenVEP)**
 
-## **Overview**
-
 This repository is part of the **COGS 189 Brain-Computer Interface (BCI) group**, consisting of the following members:
 
 **Team Members:**
