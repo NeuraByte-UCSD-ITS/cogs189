@@ -141,7 +141,7 @@ The experiment involved visually attending to one of four flickering squares, ea
 - **Testing Real-time BCI:** 100% accuracy
   - In the video, the trained model successfully detected the subject’s focus, highlighting the correct square.
 
-[Training Model Test Success Video]\(training\_model\_test\_success.MOV)
+[Training Model Test Success Video](training_model_test_success.MOV)
 
 ### **Real-Time Model Application & Next Steps**
 
@@ -153,7 +153,7 @@ The next step is **cursor movement mapping**.
   - The BCI highlights the correct square in real time
   - This is visible in `applied_model_image.jpeg`
 
-![Applied Model Image]\(applied\_model\_image.jpeg)
+![Applied Model Image](applied_model_image.jpeg)
 
 - **Next Step:** Implement cursor movement
   - Cursor starts in the center
