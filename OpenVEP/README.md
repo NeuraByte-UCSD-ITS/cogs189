@@ -141,8 +141,9 @@ The experiment involved visually attending to one of four flickering squares, ea
 - **Testing Real-time BCI:** 100% accuracy
   - In the video, the trained model successfully detected the subject’s focus, highlighting the correct square.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/0Seno1-ghCM?si=ha1sdtW93sLsGo4C" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+https://github.com/user-attachments/assets/c75bfadf-30ea-4fe6-b056-0ba2697271fc
 
+[SSVEP Training Model Test Success](https://www.youtube.com/watch?v=0Seno1-ghCM)
 ### **Real-Time Model Application & Next Steps**
 
 The next step is **cursor movement mapping**.
