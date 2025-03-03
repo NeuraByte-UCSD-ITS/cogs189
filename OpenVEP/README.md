@@ -18,6 +18,8 @@ This repository is a **cloned version of Simon Fei's OpenVEP repository**, with 
 - **Original Repository:** [Simon Fei’s OpenVEP](https://github.com/simonfei123/OpenVEP)
 - **Contact:** Simon Fei - [tfei@ucsd.edu](mailto\:tfei@ucsd.edu)
 
+- The `run_vep.py` is the original run_vep code from Simon's Repository.
+
 ## **Experiment Details**
 
 We have officially completed the **SSVEP portion** of our experiment in this repository. The experiment involved real-time classification of SSVEP signals to predict which visual stimulus a subject was attending to.
@@ -51,7 +53,7 @@ model_file_path = 'cache/FBTRCA_model.pkl'
 
 The experiment consists of two primary modes: **Calibration Mode** and **Prediction Mode**.
 
-- **Calibration Mode (********`calibration_mode = True`********\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*)**
+- **Calibration Mode (********`calibration_mode = True`********)**
 
   - In this mode, the system collects EEG data for each trial and saves it for later analysis.
   - The collected data is used to train a model that can predict the target based on the EEG signals.
@@ -61,7 +63,7 @@ The experiment consists of two primary modes: **Calibration Mode** and **Predict
     calibration_mode = True
     ```
 
-- **Prediction Mode (********`calibration_mode = False`********\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*)**
+- **Prediction Mode (********`calibration_mode = False`********)**
 
   - In this mode, the pre-trained model is applied in real time to predict the target based on EEG signals.
   - The visual stimuli remain, but instead of collecting new training data, the system processes the signals and makes real-time predictions.
