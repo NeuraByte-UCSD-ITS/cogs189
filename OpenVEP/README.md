@@ -92,6 +92,8 @@ These frequencies are used in conjunction with a phase shift of `0` radians to g
 ## **Experiment Setup & Execution**
 
 ### **Lab Computers Setup**
+- This is only for setup on the Lab computer for COGS 189
+
 1. Sign in to lab computer using your UCSD credentials
 2. Open VS Code
 3. Git clone this repository into THIS directory:
@@ -104,11 +106,11 @@ These frequencies are used in conjunction with a phase shift of `0` radians to g
 8. run `& c:/Users/{your_username}/OpenVEP/pyenv/Scripts/python.exe -m pip install virtualenv -m virtualenv pyenv --python=3.11.9`
 9. run `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
 10. run `pyenv/Scripts/activate` (This will activate the virtual environment)
-11. pip install -r requirements.txt
-12. git clone https://github.com/TBC-TJU/brainda.git (incase you don't have the brainda folder already)
-13. cd brainda
-14. pip install -r requirements.txt
-15. pip install -e .
+11. run pip install -r requirements.txt
+12. run git clone https://github.com/TBC-TJU/brainda.git (incase you don't have the brainda folder already)
+13. run cd brainda
+14. run pip install -r requirements.txt
+15. run pip install -e .
 
 ### **EEG Hardware & Electrode Placement**
 
