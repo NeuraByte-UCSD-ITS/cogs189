@@ -92,7 +92,7 @@ These frequencies are used in conjunction with a phase shift of `0` radians to g
 ## **Experiment Setup & Execution**
 
 ### **Lab Computers Setup**
-- This is only for setup on the Lab computer for COGS 189
+> This is only for setup on the Lab computer for COGS 189
 
 1. Sign in to lab computer using your UCSD credentials
 2. Open VS Code
@@ -153,6 +153,18 @@ The experiment involved visually attending to one of four flickering squares, ea
 - **Trained Model:** `FBTRCA_model.pkl`
 - **Training (Classification) Script:** `train_trca.py`
 - **Final Application Demo:** `training_model_test_success*.MOV`
+
+
+## Data File Explanation
+- The `subject` number variable is to represent the "subject" or person who is wearing the EEG Headset
+- The `session` variable represents the day of lab testing. So the first day you come in will be `session` 1, the second day you come in will be `session` 2
+- The `run` variable represents the "run" of the python code. Every time you run the `run_vep.py` you will increment this value
+- The `num_per_class` variable represents how many times of each direction you will see in 1 run
+
+- When running `run_vep.py` you will save two types of files: **aux...** and **eeg_trials...**
+- Both of these files are saved as `.npy` files
+- These files are then used in the `train_trca.py` to get a trained model in the `.pkl.` format
+
 
 ### Results
 
