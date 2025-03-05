@@ -4,6 +4,7 @@ import numpy as np
 from scipy import signal
 import random, os, pickle
 import mne
+import pyautogui
 
 cyton_in = False
 lsl_out = False
@@ -56,7 +57,7 @@ def create_4_key_caps():
 def create_photosensor_dot(size=2/8*0.7):
     width, height = window.size
     ratio = width/height
-    return visual.Rect(win=window, units="norm", width=size, height=size * ratio, 
+    return visual.Rect(win=window, units="norm", width=size, height=size * ratio,
                        fillColor='white', lineWidth = 0, pos = [1 - size/2, -1 - size/8]
     )
 
@@ -77,9 +78,9 @@ keyboard = keyboard.Keyboard()
 window = visual.Window(
         size = [width,height],
         checkTiming = True,
-        allowGUI = False,
+        allowGUI = True,
         fullscr = True,
-        useRetina = False,
+        useRetina = False
     )
 
 visual_stimulus = create_4_targets(checkered=False)
@@ -98,7 +99,7 @@ if cyton_in:
     sampling_rate = 250
     CYTON_BOARD_ID = 0 # 0 if no daisy 2 if use daisy board, 6 if using daisy+wifi shield
     BAUD_RATE = 115200
-    ANALOGUE_MODE = '/2' # Reads from analog pins A5(D11), A6(D12) and if no 
+    ANALOGUE_MODE = '/2' # Reads from analog pins A5(D11), A6(D12) and if no
                         # wifi shield is present, then A7(D13) as well.
     def find_openbci_port():
         print("running")
@@ -135,7 +136,7 @@ if cyton_in:
             exit()
         else:
             return openbci_port
-        
+
     print(BoardShim.get_board_descr(CYTON_BOARD_ID))
     params = BrainFlowInputParams()
     if CYTON_BOARD_ID != 6:
@@ -152,7 +153,7 @@ if cyton_in:
     print(res_query)
     board.start_stream(45000)
     stop_event = Event()
-    
+
     def get_data(queue_in, lsl_out=False):
         while not stop_event.is_set():
             data_in = board.get_board_data()
@@ -163,7 +164,7 @@ if cyton_in:
                 print('queue-in: ', eeg_in.shape, aux_in.shape, timestamp_in.shape)
                 queue_in.put((eeg_in, aux_in, timestamp_in))
             time.sleep(0.1)
-    
+
     queue_in = Queue()
     cyton_thread = Thread(target=get_data, args=(queue_in, lsl_out))
     cyton_thread.daemon = True
@@ -299,7 +300,7 @@ if calibration_mode:
                     aim_target_color = 'white'
                 else:
                     aim_target_color = 'red'
-                    
+
             # time_window = -int((stim_duration + 0.3) * sampling_rate)
             # trial_eeg = np.copy(eeg[time_window:])
             # trial_aux = np.copy(aux[time_window:])
@@ -343,7 +344,7 @@ else:
                 board.stop_stream()
                 board.release_session()
                 core.quit()
-            
+
             visual_stimulus.colors = np.array([stimulus_frames[i_frame]] * 3).T
             visual_stimulus.draw()
             photosensor_dot.color = np.array([1, 1, 1])
@@ -383,21 +384,33 @@ else:
             cropped_eeg = trial_eeg[:, baseline_duration_samples:]
             if model is not None:
                 prediction = model.predict(cropped_eeg)[0]
+
         pred_letter = letters[prediction]
-        if pred_letter not in ['⎵', '⌫', '⤒']:
-            if shift:
-                pred_text_string += pred_letter
-                shift = False
-            else:
-                pred_text_string += pred_letter.lower()
-        elif pred_letter == '⌫':
-            pred_text_string = pred_text_string[:-1]
-        elif pred_letter == '⎵':
-            pred_text_string += ' '
-        elif pred_letter == '⤒':
-            shift = True
+        screen_width, screen_height = pyautogui.size() # Get the size of the primary monitor.
+        current_x, current_y = pyautogui.position() # Get the XY position of the mouse.
+
         if len(pred_text_string) > 74:
             pred_text_string = pred_text_string[-74:]
+        if pred_letter == '←':
+            print("Moving left")
+            new_x = max(current_x - 200, 0)
+            pyautogui.moveTo(new_x, current_y, duration=1)
+        elif pred_letter == '→':
+            print("Moving right")
+            screen_width, _ = pyautogui.size()
+            new_x = min(current_x + 200, screen_width)
+            pyautogui.moveTo(new_x, current_y, duration=1)
+        elif pred_letter == '↑':
+            print("Moving up")
+            new_y = max(current_y - 200, 0)
+            pyautogui.moveTo(current_x, new_y, duration=1)
+        elif pred_letter == '↓':
+            print("Moving down")
+            screen_height = pyautogui.size().height
+            new_y = min(current_y + 200, screen_height)
+            pyautogui.moveTo(current_x, new_y, duration=1)
+            
+        pyautogui.moveTo(screen_width // 2, screen_height // 2, duration=0.5)
     stop_event.set()
     board.stop_stream()
     board.release_session()
