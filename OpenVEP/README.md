@@ -91,6 +91,25 @@ These frequencies are used in conjunction with a phase shift of `0` radians to g
 
 ## **Experiment Setup & Execution**
 
+### **Lab Computers Setup**
+1. Sign in to lab computer using your UCSD credentials
+2. Open VS Code
+3. Git clone this repository into THIS directory:
+- C://Users/{your_username}/
+4. Click "install" on the pop that appears on the bottom right of the vs code application
+5. Go to the `run_vep.py` file and hit run (should give you error)
+6. Look at the terminal and you should see something in the format of "**& c:/Users/{your_username}/OpenVEP/pyenv/Scripts/python.exe**"
+ - This is your python file path and you will use this instead of typing `python`
+7. run `& c:/Users/{your_username}/OpenVEP/pyenv/Scripts/python.exe -m pip install virtualenv`
+8. run `& c:/Users/{your_username}/OpenVEP/pyenv/Scripts/python.exe -m pip install virtualenv -m virtualenv pyenv --python=3.11.9`
+9. run `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
+10. run `pyenv/Scripts/activate` (This will activate the virtual environment)
+11. pip install -r requirements.txt
+12. git clone https://github.com/TBC-TJU/brainda.git (incase you don't have the brainda folder already)
+13. cd brainda
+14. pip install -r requirements.txt
+15. pip install -e .
+
 ### **EEG Hardware & Electrode Placement**
 
 - **EEG Device:** [OpenBCI Cyton Biosensing Board (8-Channel)](https://shop.openbci.com/collections/frontpage/products/cyton-biosensing-board-8-channel)
