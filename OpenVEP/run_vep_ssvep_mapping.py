@@ -6,16 +6,16 @@ import random, os, pickle
 import mne
 import pyautogui
 
-cyton_in = False
+cyton_in = True
 lsl_out = False
-width = 1536
-height = 864
+width = 2880
+height = 1800
 aspect_ratio = width/height
-refresh_rate = 60.02
+refresh_rate = 120
 stim_duration = 1.2
 n_per_class = 2
 stim_type = 'alternating' # 'alternating' or 'independent'
-subject = 1
+subject = 10
 session = 1
 calibration_mode = False
 save_dir = f'data/cyton8_{stim_type}-vep_4-class_{stim_duration}s/sub-{subject:02d}/ses-{session:02d}/' # Directory to save data to
