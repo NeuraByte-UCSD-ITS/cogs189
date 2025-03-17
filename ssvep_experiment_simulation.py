@@ -2,6 +2,7 @@
 import pygame
 import random
 import time
+import pyautogui
 
 #initialize pygame
 pygame.init()
@@ -26,7 +27,7 @@ square_positions = {
 }
 
 #defining frequencies
-frequencies = {0: "8 Hz", 1: "10 Hz", 2: "12 Hz", 3: "15 Hz"}
+frequencies = {0: "8 Hz: Move Up", 1: "10 Hz: Move Down", 2: "12 Hz: Move Left", 3: "15 Hz: Move Right"}
 
 def draw_squares(highlighted=None, phase="SSVEP Data Collection", round_num=1):
     """drawing squares & highlighting active one"""
@@ -68,9 +69,14 @@ def model_application_phase():
     """simulating 3 full rounds of FBTRCA model application after all SSVEP data collection is done"""
     print("### Starting FBTRCA Model Application Phase ###")
 
+    screen_width, screen_height = pyautogui.size() # Get the size of the primary monitor.
+    pyautogui.moveTo(screen_width // 2, screen_height // 2, duration=0.5)
+    current_x, current_y = pyautogui.position() # Get the XY position of the mouse.
+
     for round_num in range(1, 4):  #3 rounds
         print(f"Starting FBTRCA Model Application Round {round_num}")
         
+
         user_target = random.choice([0, 1, 2, 3])  #user fixating on one
         #flashing simulation (all squares flicker, as in real model use)
         for _ in range(5):
@@ -79,6 +85,28 @@ def model_application_phase():
         
         #model prediction (correctly selecting the user’s intended square)
         draw_squares(highlighted=user_target, phase=f"FBTRCA Model Prediction: {frequencies[user_target]}", round_num=round_num)
+        
+        if user_target == 2:
+            print("Moving left")
+            new_x = max(current_x - 200, 0)
+            pyautogui.moveTo(new_x, current_y, duration=1)
+        elif user_target == 3:
+            print("Moving right")
+            screen_width, _ = pyautogui.size()
+            new_x = min(current_x + 200, screen_width)
+            pyautogui.moveTo(new_x, current_y, duration=1)
+        elif user_target == 0:
+            print("Moving up")
+            new_y = max(current_y - 200, 0)
+            pyautogui.moveTo(current_x, new_y, duration=1)
+        elif user_target == 1:
+            print("Moving down")
+            screen_height = pyautogui.size().height
+            new_y = min(current_y + 200, screen_height)
+            pyautogui.moveTo(current_x, new_y, duration=1)
+            
+        pyautogui.moveTo(screen_width // 2, screen_height // 2, duration=0.5)
+
         time.sleep(2)
 
     print("### FBTRCA Model Application Completed ###")
